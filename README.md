@@ -11,7 +11,7 @@
 * Green objects detection
 ![Example screenshot](./img/1.png)
 
-* Circles detection
+* Circles detection                    
 ![Example screenshot](./img/2.png)
 
 * Green circles detection
