@@ -12,7 +12,7 @@ class CircleThread(QThread):
 
     def run(self):
         # capture from web cam
-        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        cap = cv2.VideoCapture(0)
         while self._run_flag:
             ret, cv_img = cap.read()
             # Convert to grayscale.
