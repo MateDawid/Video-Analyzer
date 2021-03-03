@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5.QtGui import QFont
-from CircleApp import CircleApp
-from VideoApp import VideoApp
-from GreenApp import GreenApp
+from Classes.CircleApp import CircleApp
+from Classes.VideoApp import VideoApp
+from Classes.GreenApp import GreenApp
+from Classes.GreenCircleApp import GreenCircleApp
 
 class Menu(QWidget):
     def __init__(self):
@@ -25,19 +26,20 @@ class Menu(QWidget):
         self.green_button.clicked.connect(self.open_green_detection)
         self.green_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.green_button.setFont(QFont('Times', 15))
+        self.green_circle_button = QPushButton("Green circle detection")
+        self.green_circle_button.clicked.connect(self.open_green_circle_detection)
+        self.green_circle_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.green_circle_button.setFont(QFont('Times', 15))
 
         # create a vertical box layout with image and buttons
         grid = QGridLayout()
         grid.addWidget(self.clean_button, 0, 0)
         grid.addWidget(self.circle_button, 1, 0)
         grid.addWidget(self.green_button, 2, 0)
+        grid.addWidget(self.green_circle_button, 3, 0)
         self.setLayout(grid)
 
     def open_circle_detection(self):
-        # if self.view_clean:
-        #     self.view_clean.closeEvent()
-        # elif self.view_green:
-        #     self.view_green.closeEvent()
         self.view_circle = CircleApp()
         self.view_circle.show()
 
@@ -48,3 +50,8 @@ class Menu(QWidget):
     def open_green_detection(self):
         self.view_green = GreenApp()
         self.view_green.show()
+
+    def open_green_circle_detection(self):
+        self.view_green_circle = GreenCircleApp()
+        self.view_green_circle.show()
+

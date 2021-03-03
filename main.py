@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from Menu import Menu
+from Classes.Menu import Menu
 
 
 if __name__ == "__main__":

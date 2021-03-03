@@ -1,16 +1,16 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt5.QtGui import QPixmap
 import cv2
 from PyQt5.QtCore import pyqtSlot, Qt
 import numpy as np
-from VideoThread import VideoThread
+from Classes.GreenThread import GreenThread
 
 
-class VideoApp(QWidget):
+class GreenApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Video Analyzer - Clean View")
+        self.setWindowTitle("Video Analyzer - Green colour detection")
         self.disply_width = 640
         self.display_height = 480
         # create the label that holds the image
@@ -25,7 +25,7 @@ class VideoApp(QWidget):
         self.setLayout(vbox)
 
         # create the video capture thread
-        self.thread = VideoThread()
+        self.thread = GreenThread()
         # connect its signal to the update_image slot
         self.thread.change_pixmap_signal.connect(self.update_image)
         # start the thread
