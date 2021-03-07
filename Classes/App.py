@@ -4,28 +4,24 @@ from PyQt5.QtGui import QPixmap
 import cv2
 from PyQt5.QtCore import pyqtSlot, Qt
 import numpy as np
-from Classes.GreenThread import GreenThread
 
 
-class GreenApp(QWidget):
-    def __init__(self):
+class App(QWidget):
+    def __init__(self, thread):
         super().__init__()
-        self.setWindowTitle("Video Analyzer - Green colour detection")
-        self.disply_width = 640
+        self.setWindowTitle("Video Analyzer")
+        self.display_width = 640
         self.display_height = 480
-        # create the label that holds the image
         self.image_label = QLabel(self)
-        self.image_label.resize(self.disply_width, self.display_height)
+        self.image_label.resize(self.display_width, self.display_height)
 
-        # create a vertical box layout with image and buttons
+        # add box layout with screen label
         vbox = QVBoxLayout()
         vbox.addWidget(self.image_label)
-
-        # set the vbox layout as the widgets layout
         self.setLayout(vbox)
 
         # create the video capture thread
-        self.thread = GreenThread()
+        self.thread = thread
         # connect its signal to the update_image slot
         self.thread.change_pixmap_signal.connect(self.update_image)
         # start the thread
@@ -37,7 +33,6 @@ class GreenApp(QWidget):
 
     @pyqtSlot(np.ndarray)
     def update_image(self, cv_img):
-        """Updates the image_label with a new opencv image"""
         qt_img = self.convert_cv_qt(cv_img)
         self.image_label.setPixmap(qt_img)
 

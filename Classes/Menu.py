@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5.QtGui import QFont
-from Classes.CircleApp import CircleApp
-from Classes.VideoApp import VideoApp
-from Classes.GreenApp import GreenApp
-from Classes.GreenCircleApp import GreenCircleApp
+from Classes.App import App
+from Classes.VideoThread import VideoThread
+from Classes.CircleThread import CircleThread
+from Classes.GreenThread import GreenThread
+from Classes.GreenCircleThread import GreenCircleThread
 
 class Menu(QWidget):
     def __init__(self):
@@ -14,6 +15,7 @@ class Menu(QWidget):
         self.add_buttons()
 
     def add_buttons(self):
+        # add buttons for all views
         self.clean_button = QPushButton("Clean view")
         self.clean_button.clicked.connect(self.open_clean_view)
         self.clean_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -39,19 +41,24 @@ class Menu(QWidget):
         grid.addWidget(self.green_circle_button, 3, 0)
         self.setLayout(grid)
 
-    def open_circle_detection(self):
-        self.view_circle = CircleApp()
-        self.view_circle.show()
-
+    # define functions displaying video from different threads
     def open_clean_view(self):
-        self.view_clean = VideoApp()
-        self.view_clean.show()
+        self.app = App(VideoThread())
+        self.app.setWindowTitle("Video Analyzer - Clean View")
+        self.app.show()
+
+    def open_circle_detection(self):
+        self.app = App(CircleThread())
+        self.app.setWindowTitle("Video Analyzer - Circle Detection")
+        self.app.show()
 
     def open_green_detection(self):
-        self.view_green = GreenApp()
-        self.view_green.show()
+        self.app = App(GreenThread())
+        self.app.setWindowTitle("Video Analyzer - Green colour detection")
+        self.app.show()
 
     def open_green_circle_detection(self):
-        self.view_green_circle = GreenCircleApp()
-        self.view_green_circle.show()
+        self.app = App(GreenCircleThread())
+        self.app.setWindowTitle("Video Analyzer - Green circle detection")
+        self.app.show()
 
