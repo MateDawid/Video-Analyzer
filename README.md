@@ -8,10 +8,10 @@
 * [Contact](#contact)
 
 ## Screenshots
-* Green objects detection
+* Circles detection
 ![Example screenshot](./img/1.png)
 
-* Circles detection                    
+* Green objects detection
 ![Example screenshot](./img/2.png)
 
 * Green circles detection
