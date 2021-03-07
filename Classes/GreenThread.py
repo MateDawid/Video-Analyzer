@@ -16,10 +16,10 @@ class GreenThread(QThread):
         while self._run_flag:
             ret, cv_img = cap.read()
 
+            # Convert to HSV -> Hue - Saturation - Value
             hsv_frame = cv2.cvtColor(cv_img, cv2.COLOR_BGR2HSV)
-
-            low_range = np.array([30, 0, 0])
-            high_range = np.array([90, 255, 255])
+            low_range = np.array([40, 0, 0])
+            high_range = np.array([80, 255, 255])
             mask = cv2.inRange(hsv_frame, low_range, high_range)
             image = cv2.bitwise_and(cv_img, cv_img, mask=mask)
 

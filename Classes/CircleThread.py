@@ -22,12 +22,17 @@ class CircleThread(QThread):
             gray_blurred = cv2.blur(gray, (3, 3))
 
             # Apply Hough transform on the blurred image.
-            detected_circles = cv2.HoughCircles(gray_blurred, cv2.HOUGH_GRADIENT, 1, 20, param1=50, param2=70,
+            detected_circles = cv2.HoughCircles(image=gray_blurred,
+                                                method=cv2.HOUGH_GRADIENT,
+                                                dp=1,  # inverse resolution ratio
+                                                minDist=20,  # min distance between two circles centers
+                                                param1=50,
+                                                param2=70,
                                                 minRadius=20,
                                                 maxRadius=100)
             if detected_circles is not None:
 
-                # Convert the circle parameters a, b and r to integers.
+                # Convert the circle parameters a, b and r to round integers.
                 detected_circles = np.uint16(np.around(detected_circles))
 
                 for pt in detected_circles[0, :]:
@@ -36,7 +41,9 @@ class CircleThread(QThread):
                     # Draw the circumference of the circle.
                     cv2.circle(cv_img, (a, b), r, (0, 255, 0), 2)
                     cv2.circle(cv_img, (a, b), 1, (0, 0, 255), 3)
+
             if ret:
                 self.change_pixmap_signal.emit(cv_img)
 
         cap.release()
+        cv2.destroyAllWindows()
